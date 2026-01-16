@@ -1,0 +1,29 @@
+<!-- app/views/dashboard/index.html.erb -->
+<h1>Projects Dashboard</h1>
+
+<p><%= link_to "New Project", new_project_path %></p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.title %></td>
+        <td>
+          <%= link_to "View", project_path(project) %> |
+          <%= link_to "Edit", edit_project_path(project) %> |
+          <%= button_to "Delete", project_path(project), method: :delete, data: { confirm: "Are you sure?" }, form: { style: "display: inline;" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @projects.empty? %>
+  <p>No projects yet. <%= link_to "Create your first project", new_project_path %></p>
+<% end %>

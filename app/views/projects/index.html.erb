@@ -1,15 +1,25 @@
+<!-- app/views/projects/index.html.erb -->
 <p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Projects" %>
 
 <h1>Projects</h1>
 
 <div id="projects">
   <% @projects.each do |project| %>
-    <%= render project %>
-    <p>
+    <div style="margin-bottom: 30px; padding: 20px; border: 1px solid #ddd;">
+      <%= link_to project do %>
+        <% if project.featured_image.attached? %>
+          <%= image_tag project.featured_image.variant(resize_to_limit: [300, 200]), style: "width: 100%; max-width: 300px; height: auto;" %>
+        <% end %>
+        
+        <h3><%= project.title %></h3>
+      <% end %>
+      
+      <% if project.description.present? %>
+        <p><%= project.description.to_plain_text.truncate(200) %></p>
+      <% end %>
+      
       <%= link_to "Show this project", project %>
-    </p>
+    </div>
   <% end %>
 </div>
 

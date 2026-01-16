@@ -1,10 +1,23 @@
+<!-- app/views/projects/show.html.erb -->
 <p style="color: green"><%= notice %></p>
 
-<%= render @project %>
+<% if @project.featured_image.attached? %>
+  <div style="margin-bottom: 20px;">
+    <%= image_tag @project.featured_image, style: "max-width: 100%; height: auto;" %>
+  </div>
+<% end %>
 
-<div>
+<h1><%= @project.title %></h1>
+
+<% if @project.description.present? %>
+  <div class="project-description">
+    <%= @project.description %>
+  </div>
+<% end %>
+
+<div style="margin-top: 20px;">
   <%= link_to "Edit this project", edit_project_path(@project) %> |
   <%= link_to "Back to projects", projects_path %>
 
-  <%= button_to "Destroy this project", @project, method: :delete %>
+  <%= button_to "Destroy this project", @project, method: :delete, data: { confirm: "Are you sure?" } %>
 </div>

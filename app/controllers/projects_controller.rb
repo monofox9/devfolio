@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
 
+
   # GET /projects or /projects.json
   def index
     @projects = Project.all
@@ -65,6 +66,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.expect(project: [ :title ])
+      params.require(:project).permit(:title, :description, :featured_image)
     end
 end

@@ -1,8 +1,8 @@
+<!-- app/views/projects/_form.html.erb -->
 <%= form_with(model: project) do |form| %>
   <% if project.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
       <ul>
         <% project.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -14,6 +14,23 @@
   <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.rich_text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :featured_image, "Featured Image", style: "display: block" %>
+    <%= form.file_field :featured_image, accept: "image/*" %>
+    
+    <% if project.featured_image.attached? %>
+      <div style="margin-top: 10px;">
+        <p>Current image:</p>
+        <%= image_tag project.featured_image, style: "max-width: 300px; height: auto;" %>
+      </div>
+    <% end %>
   </div>
 
   <div>
